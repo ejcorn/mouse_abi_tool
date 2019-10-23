@@ -9,6 +9,7 @@
 .Ruserdata
 .DS_Store
 data/*
+ABA_expression/*
 # Example code in package build process
 *-Ex.R
 

@@ -1,4 +1,4 @@
-rm(list=setdiff(ls(),c('params')))
+rm(list=setdiff(ls(),c('params','fname')))
 basedir <- params$basedir # make this whatever you like, end with /
 setwd(basedir)
 source('code/aba/aba_fxns.R')
@@ -6,10 +6,10 @@ abadir <- 'data/aba/'
 dir.create(paste0(abadir,'expression'),recursive = T)
 load(file=paste0(abadir,'ontologies/keys.RData'))
 load(paste(params$opdir,'processed/connectome.RData',sep=''))  # load path data and ROI names
-fname <- 'OpioidGeneExpression'
 
 datasets <- read.csv('data/aba/mouse_expression_data_sets.csv',stringsAsFactors = F)
-df.expression.probes <- read.csv(file = paste0(abadir,'expression/',fname,'.csv'))
+load(file = paste0(abadir,'expression/',fname,'.RData'))
+df.expression.probes <- df.expression
 
 #######################
 ### Probe selection ###
@@ -21,10 +21,11 @@ df.expression.probes <- read.csv(file = paste0(abadir,'expression/',fname,'.csv'
 df.expression <- as.data.frame(matrix(ncol=0,nrow=length(region.names.hemi)))
 rownames(df.expression) <- region.names.hemi
 genes <- unique(datasets$gene_symbol) # select gene names
-genes <- unique(datasets$gene_symbol[grep('Opr',datasets$gene_symbol)]) # select gene names
+#genes <- unique(datasets$gene_symbol[grep('Opr',datasets$gene_symbol)]) # select gene names
 for(gene in genes){
-  gene.mask <- grep(gene,names(df.expression.probes)) # find all probes/datasets for a given gene
-  df.expression[,gene] <- rowMeans(df.expression.probes[,gene.mask],na.rm = T) # store the mean across those datasets, ignoring NaNs
+  geneprobeid.names <- names(original.geneprobeid)[grep(gene,names(original.geneprobeid))] # find all probes/datasets for a given gene based on original names
+  geneprobeid.names <- unname(original.geneprobeid[geneprobeid.names]) # get dataframe column names
+  df.expression[,gene] <- rowMeans(df.expression.probes[,geneprobeid.names,drop = FALSE],na.rm = T) # store the mean across those datasets, ignoring NaNs
 }
 
 #################################
