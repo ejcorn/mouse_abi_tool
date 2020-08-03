@@ -27,5 +27,4 @@ source('code/process/process.R')
 source('code/aba/process_ontology.R')
 fname <- 'AllGeneExpression'
 source('code/aba/download_gene_expression.R')
-source('code/aba/probeselection_normalization.R')
 source('code/aba/probenormalization_selection.R')
