@@ -45,4 +45,5 @@ unit.test(all(colnames(W) == rownames(W)),'row and column names of conn mat are 
 region.names <- colnames(W) # store connectivity matrix names
 
 save(region.names, region.names.hemi, n.regions.ABA, n.regions.ABA.hemi,file = paste(savedir,'connectome.RData',sep=''))
+write.csv(x=W,file=paste0(basedir,'data/W.csv'))
 writeMat(paste(savedir,'W.mat',sep=''),W=as.matrix(W))
