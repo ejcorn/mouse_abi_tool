@@ -8,7 +8,8 @@
 # User-specific files
 .Ruserdata
 .DS_Store
-data/*
+data/aba*
+data/W.csv
 ABA_expression/*
 # Example code in package build process
 *-Ex.R
