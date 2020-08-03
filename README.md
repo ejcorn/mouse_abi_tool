@@ -1,5 +1,5 @@
 # mouse_abi_tool
- Tool to pull gene expression from Allen Brain Institute API in same annotation space as structural connectome.
+ Tool to pull gene expression from Allen Brain Institute API in Common Coordinate Framework v2 space. This code was used to obtain gene expression data for Brynildsen et al. 2020 (https://www.pnas.org/content/early/2020/07/20/2003601117).
 
 View `code/misc/packages.R` to find the prerequisite packages.
 
